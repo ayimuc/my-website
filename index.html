@@ -1,70 +1,485 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>a-Yi® Chinese Kitchen</title>
-  <link rel="icon" type="image/png" href="/favicon.png">
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      color: #222;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f3ee;
+      color: #111;
     }
 
-    .container {
-      max-width: 700px;
-      margin: 100px auto;
-      padding: 40px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    /* NAVIGATION */
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 72px;
+      padding: 0 48px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      background: rgba(246, 243, 238, 0.95);
+      backdrop-filter: blur(8px);
+
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
     }
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -1px;
     }
 
-    p {
-      font-size: 18px;
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      color: #111;
+      text-decoration: none;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.55;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+
+      padding: 130px 8% 80px;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(140, 0, 0, 0.92) 0%,
+          rgba(175, 5, 5, 0.88) 55%,
+          rgba(205, 25, 25, 0.82) 100%
+        );
+    }
+
+    .hero-content {
+      max-width: 900px;
+      color: white;
+    }
+
+    .eyebrow {
+      font-size: 14px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+
+    .hero h1 {
+      margin: 0;
+
+      font-size: clamp(70px, 11vw, 150px);
+      line-height: 0.88;
+
+      letter-spacing: -7px;
+      font-weight: 700;
+    }
+
+    .hero h2 {
+      margin: 22px 0 0;
+
+      font-size: clamp(24px, 3.5vw, 48px);
+      font-weight: 400;
+
+      letter-spacing: 3px;
+    }
+
+    .hero-description {
+      max-width: 540px;
+
+      margin-top: 36px;
+
+      font-size: 21px;
+      line-height: 1.55;
+
+      color: rgba(255,255,255,0.9);
+    }
+
+    .hero-footer {
+      margin-top: 48px;
+
+      display: flex;
+      align-items: center;
+      gap: 24px;
+
+      flex-wrap: wrap;
+    }
+
+    .coming-soon {
+      padding: 14px 22px;
+
+      border: 1px solid rgba(255,255,255,0.55);
+
+      border-radius: 999px;
+
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .hero-link {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+
+      border-bottom: 1px solid white;
+      padding-bottom: 4px;
+    }
+
+    /* CONTENT SECTIONS */
+
+    section {
+      padding: 120px 8%;
+    }
+
+    .section-title {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #b00000;
+      margin-bottom: 26px;
+    }
+
+    .section-heading {
+      max-width: 850px;
+
+      margin: 0;
+
+      font-size: clamp(38px, 5vw, 72px);
+      line-height: 1.05;
+
+      letter-spacing: -2px;
+    }
+
+    .section-text {
+      max-width: 650px;
+
+      margin-top: 35px;
+
+      font-size: 20px;
       line-height: 1.7;
+
       color: #555;
     }
 
-    a {
-      color: #0066cc;
+    /* STORY */
+
+    .story {
+      background: #f6f3ee;
+    }
+
+    /* FOOD */
+
+    .food {
+      background: white;
+    }
+
+    .food-grid {
+      margin-top: 60px;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .food-card {
+      min-height: 360px;
+
+      background: #ece7df;
+
+      display: flex;
+      align-items: flex-end;
+
+      padding: 28px;
+
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    /* CONTACT */
+
+    .contact {
+      background: #111;
+      color: white;
+    }
+
+    .contact .section-title {
+      color: #ff4a4a;
+    }
+
+    .contact .section-text {
+      color: #bbb;
+    }
+
+    .email {
+      display: inline-block;
+
+      margin-top: 35px;
+
+      color: white;
+      font-size: clamp(28px, 4vw, 54px);
+
+      text-decoration: none;
+
+      border-bottom: 2px solid white;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 28px 8%;
+
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      gap: 16px;
+
+      background: #111;
+      color: #777;
+
+      font-size: 13px;
+
+      border-top: 1px solid #222;
+    }
+
+    footer a {
+      color: #777;
       text-decoration: none;
     }
 
-    a:hover {
-      text-decoration: underline;
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      .navbar {
+        padding: 0 22px;
+      }
+
+      .nav-links {
+        gap: 15px;
+      }
+
+      .nav-links a {
+        font-size: 11px;
+      }
+
+      .hero {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .hero h1 {
+        letter-spacing: -4px;
+      }
+
+      section {
+        padding: 85px 24px;
+      }
+
+      .food-grid {
+        grid-template-columns: 1fr;
+      }
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <div class="container">
-    <h1>hello hello 👋</h1>
+  <!-- NAVIGATION -->
 
-    <p>
-      a-Yi® an munich chinese express fastfood
-    </p>
+  <nav class="navbar">
 
-    <p>
-      comming soon
-    </p>
+    <div class="logo">
+      a-Yi®
+    </div>
 
-    <p>
-      email me：
-      <a href="mailto:info@a-yi.de">
-        info@a-yi.de
-      </a>
-    </p>
-  </div>
+    <div class="nav-links">
+      <a href="#story">Story</a>
+      <a href="#food">Food</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+  </nav>
+
+
+  <!-- HERO -->
+
+  <header class="hero">
+
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        Munich · Chinese Kitchen
+      </div>
+
+      <h1>
+        a-Yi®
+      </h1>
+
+      <h2>
+        CHINESE KITCHEN
+      </h2>
+
+      <div class="hero-description">
+        Simple Chinese food.<br>
+        Made with the warmth of home.
+      </div>
+
+      <div class="hero-footer">
+
+        <div class="coming-soon">
+          Coming Soon · Munich
+        </div>
+
+        <a class="hero-link" href="#story">
+          Discover a-Yi ↓
+        </a>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- STORY -->
+
+  <section class="story" id="story">
+
+    <div class="section-title">
+      Our Story
+    </div>
+
+    <h2 class="section-heading">
+      Food that feels familiar.
+    </h2>
+
+    <div class="section-text">
+
+      “a-Yi” means 阿姨 in Chinese.
+
+      <br><br>
+
+      It is the warm and familiar way we call an auntie —
+      someone who cooks with care, generosity and a little bit
+      of instinct.
+
+      <br><br>
+
+      a-Yi Chinese Kitchen brings that feeling to Munich.
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOD -->
+
+  <section class="food" id="food">
+
+    <div class="section-title">
+      Our Food
+    </div>
+
+    <h2 class="section-heading">
+      Chinese food.<br>
+      Simple. Fast. Comforting.
+    </h2>
+
+    <div class="food-grid">
+
+      <div class="food-card">
+        Signature Dish
+      </div>
+
+      <div class="food-card">
+        Noodles
+      </div>
+
+      <div class="food-card">
+        Rice
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CONTACT -->
+
+  <section class="contact" id="contact">
+
+    <div class="section-title">
+      Contact
+    </div>
+
+    <h2 class="section-heading">
+      Coming soon<br>
+      in Munich.
+    </h2>
+
+    <div class="section-text">
+      For collaborations, locations and general enquiries:
+    </div>
+
+    <a class="email" href="mailto:info@a-yi.de">
+      info@a-yi.de
+    </a>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div>
+      © 2026 a-Yi® Chinese Kitchen
+    </div>
+
+    <div>
+      <a href="#">Impressum</a>
+      &nbsp;&nbsp;
+      <a href="#">Datenschutz</a>
+    </div>
+
+  </footer>
 
 </body>
 </html>
